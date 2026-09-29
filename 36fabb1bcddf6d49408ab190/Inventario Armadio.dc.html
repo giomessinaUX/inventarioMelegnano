@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/giorgio-messina-design-system-4dff7b95-1528-470b-8ec5-40d46c70dfb3/styles.css">
+<script src="_ds/giorgio-messina-design-system-4dff7b95-1528-470b-8ec5-40d46c70dfb3/_ds_bundle.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--accent-ink)}a:hover{color:var(--accent)}
+input,button{font:inherit}
+input:focus{border-color:var(--accent) !important}
+</style>
+</helmet>
+<div style="min-height:100vh;background:var(--bg);display:flex;justify-content:center">
+<div style="width:100%;max-width:720px;padding:0 0 96px;display:flex;flex-direction:column">
+
+  <header style="padding:14px 14px 10px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <h1 style="margin:0;font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-0.025em;line-height:1.1;display:inline-flex;align-items:center;gap:0.45em"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block"></span>Inventario armadio</h1>
+      <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--ink-soft);display:inline-flex;align-items:center;gap:0.5em;white-space:nowrap"><span style="width:7px;height:7px;border-radius:50%;background:{{ statusDot }};display:inline-block;flex-shrink:0"></span>{{ statusText }}</span>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--ink-faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ statItems }} art. · {{ statPieces }} pz · {{ statSections }} contenitori · file del {{ updatedAt }}</div>
+    <input type="search" placeholder="Cerca oggetto o taglia…" value="{{ q }}" onChange="{{ onQuery }}" style="width:100%;height:40px;border:1.5px solid #d2d2d2;border-radius:999px;padding:0 16px;font-size:16px;background:var(--card-bg);color:var(--ink);outline:none">
+  </header>
+
+  <sc-if value="{{ loadError }}" hint-placeholder-val="{{ false }}">
+    <div style="margin:4px 14px 8px;padding:12px;border:1px solid var(--line-card);border-radius:10px;background:var(--works-bg);display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;line-height:1.4;color:var(--ink-soft)">
+      <span>Non riesco a leggere <b style="color:var(--ink);font-weight:500">inventario.json</b>. Caricalo a mano.</span>
+      <label style="flex-shrink:0;min-height:40px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;background:var(--ink);color:#fff;cursor:pointer;font-size:13px">Scegli file<input type="file" accept=".json,application/json" onChange="{{ onImport }}" style="display:none"></label>
+    </div>
+  </sc-if>
+
+  <div style="position:sticky;top:0;z-index:5;display:grid;grid-template-columns:22px minmax(0,1fr) minmax(0,38%) 30px 12px;gap:8px;padding:6px 14px;background:var(--bg);border-bottom:1px solid var(--line-strong);font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint)">
+    <span>Nr</span><span>Nome</span><span>Taglie</span><span style="text-align:right">Qtà</span><span></span>
+  </div>
+
+  <sc-for list="{{ sections }}" as="sec" hint-placeholder-count="3">
+    <section style="display:flex;flex-direction:column">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:7px 14px;background:var(--bg-warm);border-bottom:1px solid var(--line)">
+        <span style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink);display:inline-flex;gap:0.6em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="color:var(--accent)">{{ sec.idx }}</span>{{ sec.name }}</span>
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--ink-faint);white-space:nowrap">{{ sec.meta }}</span>
+      </div>
+      <sc-for list="{{ sec.rows }}" as="r" hint-placeholder-count="6">
+        <div id="{{ r.domId }}" style="display:flex;flex-direction:column;border-bottom:1px solid var(--line);background:{{ r.bg }}">
+          <button type="button" onClick="{{ r.toggle }}" aria-expanded="{{ r.isOpen }}" style="appearance:none;border:0;background:transparent;text-align:left;cursor:pointer;display:grid;grid-template-columns:22px minmax(0,1fr) minmax(0,38%) 30px 12px;gap:8px;align-items:center;padding:0 14px;height:44px;color:var(--ink)">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-faint)">{{ r.nr }}</span>
+            <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;line-height:1.2"><span style="font-weight:500">{{ r.name }}</span><sc-if value="{{ r.variant }}" hint-placeholder-val="{{ false }}"><span style="color:var(--ink-faint)"> · {{ r.variant }}</span></sc-if></span>
+            <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-mono);font-size:12px;color:var(--accent-ink)">{{ r.sizeText }}</span>
+            <span style="text-align:right;font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:-0.02em;color:{{ r.totalColor }}">{{ r.total }}</span>
+            <span style="color:var(--ink-faint);font-size:12px;line-height:1;text-align:center;transition:transform 0.28s cubic-bezier(0.22,1,0.36,1);transform:{{ r.chev }}">⌄</span>
+          </button>
+
+          <sc-if value="{{ r.isOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:2px 14px 14px 44px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:6px">
+                <input type="text" value="{{ r.d.name }}" onChange="{{ r.d.onName }}" placeholder="Nome *" aria-label="Nome" style="height:38px;width:100%;border:1.5px solid {{ r.d.nameBorder }};border-radius:8px;padding:0 10px;font-size:16px;outline:none;color:var(--ink);background:var(--card-bg)">
+                <input type="text" value="{{ r.d.variant }}" onChange="{{ r.d.onVariant }}" placeholder="Variante" aria-label="Variante" style="height:38px;width:100%;border:1.5px solid #d2d2d2;border-radius:8px;padding:0 10px;font-size:16px;outline:none;color:var(--ink);background:var(--card-bg)">
+                <input type="text" list="dl-sections" value="{{ r.d.section }}" onChange="{{ r.d.onSection }}" onBlur="{{ r.d.onSectionBlur }}" onKeyDown="{{ r.d.onSectionKey }}" placeholder="Contenitore" aria-label="Contenitore" style="height:38px;width:100%;border:1.5px solid #d2d2d2;border-radius:8px;padding:0 10px;font-size:16px;outline:none;color:var(--ink);background:var(--card-bg)">
+              </div>
+
+              <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+                <sc-for list="{{ r.d.sizes }}" as="z" hint-placeholder-count="1">
+                  <div style="display:grid;grid-template-columns:62px 30px 26px 30px 26px;align-items:center;height:38px;border:1.5px solid {{ z.border }};border-radius:8px;background:var(--card-bg);overflow:hidden">
+                    <input type="text" value="{{ z.size }}" onChange="{{ z.onSize }}" placeholder="Unica" aria-label="Taglia" style="height:100%;width:100%;border:0;border-right:1px solid var(--line);padding:0 6px;font-family:var(--font-mono);font-size:16px;outline:none;color:var(--ink);background:transparent">
+                    <button type="button" onClick="{{ z.dec }}" aria-label="Diminuisci" style="height:100%;border:0;background:none;font-size:16px;cursor:pointer;color:var(--ink)">−</button>
+                    <span style="text-align:center;font-family:var(--font-display);font-size:15px;font-weight:600">{{ z.qty }}</span>
+                    <button type="button" onClick="{{ z.inc }}" aria-label="Aumenta" style="height:100%;border:0;background:none;font-size:16px;cursor:pointer;color:var(--ink)">+</button>
+                    <button type="button" onClick="{{ z.remove }}" aria-label="Rimuovi taglia" style="height:100%;border:0;border-left:1px solid var(--line);background:none;cursor:pointer;color:var(--ink-faint);font-size:14px">×</button>
+                  </div>
+                </sc-for>
+                <button type="button" onClick="{{ r.d.addSize }}" style="height:38px;padding:0 10px;border:1.5px dashed var(--line-tag);border-radius:8px;background:none;cursor:pointer;font-family:var(--font-mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--accent-ink)">+ Taglia</button>
+              </div>
+
+              <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:6px">
+                <button type="button" onClick="{{ r.d.goWithdraw }}" style="height:40px;border-radius:999px;border:1.5px solid {{ r.d.wBorder }};background:{{ r.d.wBg }};color:{{ r.d.wColor }};font-size:14px;font-weight:500;cursor:pointer;opacity:{{ r.d.actOpacity }}">Ritira</button>
+                <button type="button" onClick="{{ r.d.goChange }}" style="height:40px;border-radius:999px;border:1.5px solid {{ r.d.cBorder }};background:{{ r.d.cBg }};color:{{ r.d.cColor }};font-size:14px;font-weight:500;cursor:pointer;opacity:{{ r.d.actOpacity }}">Cambia</button>
+                <button type="button" onClick="{{ r.d.del }}" aria-label="Elimina oggetto" style="height:40px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);background:none;cursor:pointer;font-size:13px;color:var(--ink-faint)">Elimina</button>
+              </div>
+
+              <sc-if value="{{ r.d.hasAction }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:10px;background:var(--bg-warm)">
+                  <sc-if value="{{ r.d.modeChange }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);width:100%">Restituisci</span>
+                      <input type="text" value="{{ r.d.ret }}" onChange="{{ r.d.onRet }}" placeholder="Taglia" aria-label="Taglia restituita" style="height:36px;width:72px;border:1.5px solid #d2d2d2;border-radius:8px;padding:0 8px;font-family:var(--font-mono);font-size:16px;outline:none;color:var(--ink);background:var(--card-bg)">
+                      <sc-for list="{{ r.d.retChips }}" as="c" hint-placeholder-count="4">
+                        <button type="button" onClick="{{ c.pick }}" style="height:36px;min-width:36px;border-radius:999px;padding:0 10px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};font-family:var(--font-mono);font-size:12px;cursor:pointer">{{ c.label }}</button>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                  <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                    <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-faint);width:100%">{{ r.d.pickTitle }}</span>
+                    <sc-for list="{{ r.d.pickChips }}" as="c" hint-placeholder-count="2">
+                      <button type="button" onClick="{{ c.pick }}" disabled="{{ c.disabled }}" style="height:36px;border-radius:999px;padding:0 12px;border:1.5px solid {{ c.border }};background:{{ c.bg }};color:{{ c.color }};opacity:{{ c.opacity }};cursor:pointer;font-family:var(--font-mono);font-size:12px">{{ c.label }} · {{ c.qty }}</button>
+                    </sc-for>
+                  </div>
+                  <div style="display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center">
+                    <div style="display:grid;grid-template-columns:36px 30px 36px;align-items:center;height:40px;border:1.5px solid #d2d2d2;border-radius:999px;background:var(--card-bg)">
+                      <button type="button" onClick="{{ r.d.nDec }}" aria-label="Diminuisci" style="height:100%;border:0;background:none;font-size:18px;cursor:pointer;color:var(--ink)">−</button>
+                      <span style="text-align:center;font-family:var(--font-display);font-size:16px;font-weight:600">{{ r.d.n }}</span>
+                      <button type="button" onClick="{{ r.d.nInc }}" aria-label="Aumenta" style="height:100%;border:0;background:none;font-size:18px;cursor:pointer;color:var(--ink)">+</button>
+                    </div>
+                    <button type="button" onClick="{{ r.d.confirm }}" disabled="{{ r.d.cannotConfirm }}" style="height:40px;border-radius:999px;border:0;background:{{ r.d.confirmBg }};color:#fff;font-size:14px;font-weight:500;cursor:pointer;opacity:{{ r.d.confirmOpacity }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px">{{ r.d.confirmLabel }}</button>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ r.d.hasMoves }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;border-top:1px solid var(--line)">
+                  <sc-for list="{{ r.d.moves }}" as="m" hint-placeholder-count="0">
+                    <div style="display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--ink-soft)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ m.text }}</span><span style="color:var(--ink-faint);white-space:nowrap">{{ m.date }}</span></div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </section>
+  </sc-for>
+  <datalist id="dl-sections"><sc-for list="{{ sectionNames }}" as="n" hint-placeholder-count="0"><option value="{{ n }}"></option></sc-for></datalist>
+
+  <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+    <p style="padding:28px 14px;margin:0;color:var(--ink-faint);font-size:14px">Nessun oggetto trovato.</p>
+  </sc-if>
+
+  <footer style="margin:20px 14px 0;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:0.04em;color:var(--ink-faint)">
+    <span style="line-height:1.5;font-family:var(--font-body);font-size:12px;letter-spacing:0">Le modifiche restano su questo dispositivo finché non premi <b style="font-weight:500;color:var(--ink-soft)">Esporta</b>. Poi sostituisci <b style="font-weight:500;color:var(--ink-soft)">inventario.json</b> nella repository (rinominalo se il browser aggiunge “(1)”).</span>
+    <div style="display:flex;flex-wrap:wrap;gap:10px 20px">
+      <label style="cursor:pointer;color:var(--ink-soft);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:0.22em">Importa file<input type="file" accept=".json,application/json" onChange="{{ onImport }}" style="display:none"></label>
+      <button type="button" onClick="{{ onReset }}" style="appearance:none;border:0;background:none;padding:0;font:inherit;color:var(--ink-soft);cursor:pointer;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:0.22em">Annulla modifiche</button>
+    </div>
+  </footer>
+</div>
+
+<div style="position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(to top, var(--bg) 70%, rgba(253,253,253,0));pointer-events:none">
+  <div style="pointer-events:auto;width:100%;max-width:692px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+    <button type="button" onClick="{{ onAdd }}" style="height:48px;border-radius:999px;border:1.5px solid var(--ink);background:var(--card-bg);color:var(--ink);font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px"><span style="font-size:18px;line-height:1">+</span>Aggiungi oggetto</button>
+    <button type="button" onClick="{{ onExport }}" style="height:48px;border-radius:999px;border:0;background:var(--accent);color:#fff;font-size:15px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 18px 40px -20px rgba(20,32,90,0.6)" style-hover="background:var(--accent-ink)">Esporta<sc-if value="{{ dirtyCount }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:#fff;color:var(--accent-ink);font-family:var(--font-mono);font-size:11px;display:inline-flex;align-items:center;justify-content:center">{{ dirtyCount }}</span></sc-if></button>
+  </div>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div style="position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:60;background:var(--ink);color:#fff;border-radius:999px;padding:9px 16px;font-size:13px;max-width:calc(100% - 28px);box-shadow:0 18px 40px -20px rgba(0,0,0,0.5)">{{ toast }}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;groupBySection&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  static KEY = 'armadio-inventario-v2';
+  static FILE = 'inventario.json';
+
+  state = { items: [], moves: [], sectionNotes: {}, stamp: null, status: 'loading', changes: 0, dirty: [], exported: null, secDraft: null, open: null, act: null, q: '', toast: null, invalid: false };
+
+  static fromFile(data) {
+    return {
+      stamp: data.aggiornato || null,
+      sectionNotes: data.noteContenitori || {},
+      moves: Array.isArray(data.movimenti) ? data.movimenti : [],
+      items: (data.oggetti || []).map((o, i) => ({
+        id: 'i' + (o.nr ?? i) + '_' + i, nr: o.nr ?? i + 1, name: o.nome || '', section: o.contenitore || 'Armadio',
+        variant: o.variante || '', note: o.note || '',
+        sizes: (o.taglie || []).map(t => ({ size: t.taglia || '', qty: t.quantita ?? null }))
+      }))
+    };
+  }
+  static mergeSizes(sizes) {
+    const out = [];
+    sizes.forEach(s => {
+      const k = (s.size || '').trim();
+      const ex = out.find(o => o.size.toLowerCase() === k.toLowerCase());
+      if (!ex) out.push({ size: k, qty: s.qty });
+      else ex.qty = ex.qty == null && s.qty == null ? null : (ex.qty || 0) + (s.qty || 0);
+    });
+    return out;
+  }
+  toFile(stamp) {
+    const { items, sectionNotes, moves } = this.state;
+    return {
+      aggiornato: stamp, noteContenitori: sectionNotes,
+      oggetti: items.map(it => ({ nr: it.nr, nome: it.name.trim(), contenitore: it.section, variante: it.variant.trim(), note: it.note, taglie: Component.mergeSizes(it.sizes).map(s => ({ taglia: s.size, quantita: s.qty })) })),
+      movimenti: moves
+    };
+  }
+
+  async componentDidMount() {
+    let draft = null;
+    try { draft = JSON.parse(localStorage.getItem(Component.KEY)); } catch (e) {}
+    const dd = (draft && draft.dirty) || [];
+    const fromDraft = draft && draft.items ? { items: draft.items, moves: draft.moves || [], dirty: dd, changes: dd.length, exported: draft.exported || null } : null;
+    try {
+      const res = await fetch(Component.FILE, { cache: 'no-store' });
+      if (!res.ok) throw new Error(res.status);
+      const file = Component.fromFile(await res.json());
+      this.fileData = file;
+      if (fromDraft && (draft.stamp === file.stamp || draft.exported === file.stamp)) this.setState({ ...file, ...fromDraft, status: 'ok' });
+      else if (fromDraft && dd.length && confirm(`Su questo dispositivo ci sono ${dd.length} oggetti modificati e non esportati, basati su una versione precedente del file.\n\nOK = tieni le mie modifiche (sovrascriveranno il file al prossimo export)\nAnnulla = usa il file aggiornato`)) this.setState({ ...file, ...fromDraft, status: 'ok' }, () => this.saveDraft(this.state));
+      else this.setState({ ...file, dirty: [], changes: 0, exported: null, status: 'ok' });
+    } catch (e) {
+      if (fromDraft) this.setState({ ...fromDraft, stamp: draft.stamp, sectionNotes: draft.sectionNotes || {}, status: 'ok' });
+      else this.setState({ status: 'error' });
+    }
+  }
+  saveDraft(s) {
+    try { localStorage.setItem(Component.KEY, JSON.stringify({ stamp: s.stamp, exported: s.exported || null, items: s.items, moves: s.moves || [], sectionNotes: s.sectionNotes, dirty: s.dirty || [] })); } catch (e) {}
+  }
+  persist(patch, msg, id) {
+    this.setState(st => {
+      const dirty = id && !st.dirty.includes(id) ? [...st.dirty, id] : st.dirty;
+      this.saveDraft({ ...st, ...patch, dirty });
+      return { ...patch, dirty, changes: dirty.length };
+    });
+    if (msg) this.flash(msg);
+  }
+  update(id, fn, msg, move) {
+    const patch = { items: this.state.items.map(x => x.id === id ? fn(x) : x) };
+    if (move) patch.moves = [...this.state.moves, { data: new Date().toISOString(), ...move }];
+    this.persist(patch, msg, id);
+  }
+  flash(msg) {
+    clearTimeout(this._t);
+    this.setState({ toast: msg });
+    this._t = setTimeout(() => this.setState({ toast: null }), 2800);
+  }
+  lbl(s) { return s.size ? s.size : 'Unica'; }
+  total(it) {
+    if (!it.sizes.length) return 0;
+    if (it.sizes.some(s => s.qty == null)) return it.sizes.every(s => s.qty == null) ? '?' : it.sizes.reduce((a, s) => a + (s.qty || 0), 0) + '+';
+    return it.sizes.reduce((a, s) => a + s.qty, 0);
+  }
+  setAct(p) { this.setState(st => ({ act: { ...st.act, ...p } })); }
+  scrollTo(id) {
+    setTimeout(() => {
+      const el = document.getElementById('row-' + id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 40, behavior: 'smooth' });
+    }, 60);
+  }
+  loadText(text, msg) {
+    try {
+      const file = Component.fromFile(JSON.parse(text));
+      this.fileData = file;
+      try { localStorage.removeItem(Component.KEY); } catch (e) {}
+      this.setState({ ...file, changes: 0, dirty: [], exported: null, status: 'ok', open: null, act: null });
+      this.flash(msg);
+    } catch (e) { this.flash('File non valido'); }
+  }
+
+  detail(it) {
+    const act = this.state.act;
+    const up = (fn, msg, move) => this.update(it.id, fn, msg, move);
+    const field = k => e => { const v = e.target.value; up(x => ({ ...x, [k]: v })); };
+    const setSize = (i, fn) => up(x => ({ ...x, sizes: x.sizes.map((s, j) => j === i ? fn(s) : s) }));
+    const hasStock = it.sizes.some(s => s.qty > 0);
+    const mode = act && act.mode;
+    const picked = act && act.pick != null ? it.sizes[act.pick] : null;
+    const n = act ? act.n : 1;
+    const ret = act ? (act.ret || '').trim() : '';
+    const same = picked && ret.toLowerCase() === (picked.size || '').toLowerCase();
+    const cannot = mode === 'withdraw' ? !picked : (!picked || !ret || same);
+    const tab = on => ({ bg: on ? 'var(--ink)' : 'var(--card-bg)', color: on ? '#fff' : 'var(--ink)', border: on ? 'var(--ink)' : '#d2d2d2' });
+    const w = tab(mode === 'withdraw'), c = tab(mode === 'change');
+    const start = m => {
+      if (!hasStock) return this.flash('Nessuna quantità disponibile');
+      this.setState({ act: mode === m ? null : { mode: m, pick: it.sizes.findIndex(s => s.qty > 0), n: 1, ret: '' } });
+    };
+    const keys = it.sizes.map(s => (s.size || '').trim().toLowerCase());
+    const retOpts = [...new Set([...it.sizes.map(s => s.size).filter(Boolean), 'S', 'M', 'L', 'XL', 'XXL'])];
+    const fmt = d => { try { return new Date(d).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }); } catch (e) { return ''; } };
+    const myMoves = this.state.moves.filter(m => m.nr === it.nr).slice(-3).reverse().map(m => ({
+      date: fmt(m.data),
+      text: m.tipo === 'ritiro' ? `Ritiro ${m.quantita} × ${m.preso}` : `Cambio ${m.quantita} × ${m.reso} → ${m.preso}`
+    }));
+    return {
+      name: it.name, variant: it.variant, section: this.state.secDraft ?? it.section,
+      nameBorder: !it.name.trim() && this.state.invalid ? '#d33' : '#d2d2d2',
+      onName: field('name'), onVariant: field('variant'),
+      onSection: e => this.setState({ secDraft: e.target.value }),
+      onSectionBlur: () => { const v = this.state.secDraft; if (v == null) return; this.setState({ secDraft: null }); const nv = v.trim() || 'Armadio'; if (nv !== it.section) { up(x => ({ ...x, section: nv })); this.scrollTo(it.id); } },
+      onSectionKey: e => { if (e.key === 'Enter') e.target.blur(); },
+      sizes: it.sizes.map((s, i) => ({
+        size: s.size, qty: s.qty == null ? '?' : s.qty,
+        border: keys.indexOf(keys[i]) !== i ? '#d33' : '#d2d2d2',
+        onSize: e => { const v = e.target.value; setSize(i, z => ({ ...z, size: v })); },
+        inc: () => setSize(i, z => ({ ...z, qty: (z.qty || 0) + 1 })),
+        dec: () => setSize(i, z => ({ ...z, qty: Math.max(0, (z.qty || 0) - 1) })),
+        remove: () => { up(x => ({ ...x, sizes: x.sizes.filter((_, j) => j !== i) })); this.setState({ act: null }); }
+      })),
+      addSize: () => up(x => ({ ...x, sizes: [...x.sizes, { size: '', qty: 1 }] })),
+      del: () => { if (confirm(`Eliminare "${it.name || 'oggetto'}" dall'inventario?`)) { this.setState({ open: null, act: null }); this.persist({ items: this.state.items.filter(x => x.id !== it.id) }, 'Oggetto eliminato', it.id); } },
+      goWithdraw: () => start('withdraw'), goChange: () => start('change'),
+      wBg: w.bg, wColor: w.color, wBorder: w.border, cBg: c.bg, cColor: c.color, cBorder: c.border,
+      actOpacity: hasStock ? 1 : 0.4,
+      hasAction: !!mode, modeChange: mode === 'change',
+      pickTitle: mode === 'change' ? "Prendi dall'armadio" : 'Taglia da ritirare',
+      pickChips: it.sizes.map((s, i) => {
+        const on = act && act.pick === i, dis = !(s.qty > 0);
+        return { label: this.lbl(s), qty: s.qty == null ? '?' : s.qty, disabled: dis, opacity: dis ? 0.4 : 1,
+          bg: on ? 'var(--ink)' : 'var(--card-bg)', color: on ? '#fff' : 'var(--ink)', border: on ? 'var(--ink)' : '#d2d2d2',
+          pick: () => this.setAct({ pick: i, n: Math.min(n, s.qty) || 1 }) };
+      }),
+      ret: act ? act.ret : '', onRet: e => this.setAct({ ret: e.target.value }),
+      retChips: retOpts.map(v => {
+        const on = ret.toLowerCase() === v.toLowerCase();
+        return { label: v, bg: on ? 'var(--works-bg)' : 'var(--card-bg)', color: on ? 'var(--accent-ink)' : 'var(--ink-soft)', border: on ? 'var(--accent)' : 'var(--line-tag)', pick: () => this.setAct({ ret: v }) };
+      }),
+      n, nInc: () => this.setAct({ n: Math.min(picked ? picked.qty : 1, n + 1) }), nDec: () => this.setAct({ n: Math.max(1, n - 1) }),
+      cannotConfirm: cannot, confirmOpacity: cannot ? 0.4 : 1,
+      confirmBg: mode === 'change' ? 'var(--accent)' : 'var(--ink)',
+      confirmLabel: mode === 'withdraw' ? (picked ? `Ritira ${n} · ${this.lbl(picked)}` : 'Ritira')
+        : (picked && ret && !same ? `Cambia ${ret} → ${this.lbl(picked)}` : 'Conferma cambio'),
+      confirm: () => {
+        if (cannot) return;
+        if (mode === 'withdraw') {
+          up(x => ({ ...x, sizes: x.sizes.map((s, i) => i === act.pick ? { ...s, qty: s.qty - n } : s) }),
+            `Ritirati ${n} × ${it.name} (${this.lbl(picked)})`,
+            { tipo: 'ritiro', nr: it.nr, oggetto: it.name, preso: this.lbl(picked), quantita: n });
+        } else {
+          up(x => {
+            let sizes = x.sizes.map((s, i) => i === act.pick ? { ...s, qty: s.qty - n } : s);
+            const ri = sizes.findIndex(s => (s.size || '').toLowerCase() === ret.toLowerCase());
+            sizes = ri >= 0 ? sizes.map((s, i) => i === ri ? { ...s, qty: (s.qty || 0) + n } : s) : [...sizes, { size: ret, qty: n }];
+            return { ...x, sizes };
+          }, `Cambio: reso ${ret}, preso ${this.lbl(picked)}`,
+            { tipo: 'cambio', nr: it.nr, oggetto: it.name, preso: this.lbl(picked), reso: ret, quantita: n });
+        }
+        this.setState({ act: null });
+      },
+      hasMoves: myMoves.length > 0, moves: myMoves
+    };
+  }
+
+  renderVals() {
+    const { items, q, open, toast, status, changes, stamp, sectionNotes } = this.state;
+    const group = this.props.groupBySection ?? true;
+    const query = q.trim().toLowerCase();
+    const match = it => !query || it.id === open || [it.name, it.variant, it.section, ...it.sizes.map(s => s.size)].join(' ').toLowerCase().includes(query);
+
+    const order = [];
+    items.forEach(it => { if (!order.includes(it.section)) order.push(it.section); });
+    const mkRow = it => {
+      const t = this.total(it), isOpen = it.id === open;
+      return {
+        domId: 'row-' + it.id, isOpen,
+        nr: String(it.nr).padStart(2, '0'), name: it.name || 'Senza nome', variant: it.variant || '',
+        sizeText: it.sizes.map(s => `${this.lbl(s)}×${s.qty == null ? '?' : s.qty}`).join('  '),
+        total: t, totalColor: t === 0 || t === '?' ? 'var(--ink-faint)' : 'var(--ink)',
+        bg: isOpen ? '#f3f5fb' : 'transparent', chev: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+        toggle: () => this.setState({ open: isOpen ? null : it.id, act: null, secDraft: null }),
+        d: isOpen ? this.detail(it) : { sizes: [], pickChips: [], retChips: [], moves: [] }
+      };
+    };
+    let sections;
+    if (group) {
+      sections = order.map((name, i) => {
+        const list = items.filter(it => it.section === name && match(it));
+        const pcs = list.reduce((a, it) => a + it.sizes.reduce((b, s) => b + (s.qty || 0), 0), 0);
+        const extra = sectionNotes[name];
+        return { name: name || 'Senza contenitore', idx: String(i + 1).padStart(2, '0'), meta: `${list.length} art. · ${pcs} pz${extra ? ' · ' + extra : ''}`, rows: list.map(mkRow) };
+      }).filter(s => s.rows.length);
+    } else {
+      const list = items.filter(match).slice().sort((a, b) => a.nr - b.nr);
+      sections = list.length ? [{ name: 'Tutti gli oggetti', idx: '01', meta: `${list.length} art.`, rows: list.map(mkRow) }] : [];
+    }
+    const pieces = items.reduce((a, it) => a + it.sizes.reduce((b, s) => b + (s.qty || 0), 0), 0);
+    const fmt = s => { try { return new Date(s).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' }); } catch (e) { return '—'; } };
+
+    return {
+      q, onQuery: e => this.setState({ q: e.target.value }),
+      sections, empty: status === 'ok' && sections.length === 0, loadError: status === 'error',
+      sectionNames: order,
+      statItems: items.length, statPieces: pieces, statSections: order.length,
+      updatedAt: stamp ? fmt(stamp) : '—',
+      statusText: status === 'loading' ? 'Caricamento…' : status === 'error' ? 'File non trovato' : changes ? `${changes} da esportare` : 'Sincronizzato',
+      statusDot: status === 'error' ? '#d33' : changes ? 'var(--accent)' : 'var(--ok)',
+      dirtyCount: changes || 0,
+      toast,
+      onAdd: () => {
+        const nr = items.reduce((a, x) => Math.max(a, x.nr), 0) + 1;
+        const it = { id: 'n' + Date.now(), nr, name: '', section: order[0] || 'Armadio', variant: '', note: '', sizes: [{ size: '', qty: 1 }] };
+        this.setState({ open: it.id, act: null, q: '' });
+        this.persist({ items: [...items, it] }, 'Nuovo oggetto: inserisci il nome', it.id);
+        this.scrollTo(it.id);
+      },
+      onExport: () => {
+        const bad = items.find(x => !x.name.trim());
+        if (bad) {
+          this.setState({ open: bad.id, act: null, q: '', invalid: true });
+          this.scrollTo(bad.id);
+          return this.flash('Un oggetto non ha nome: completalo prima di esportare');
+        }
+        const stampNew = new Date().toISOString();
+        const merged = items.map(x => ({ ...x, sizes: Component.mergeSizes(x.sizes) }));
+        this.setState({ items: merged }, () => {
+          const blob = new Blob([JSON.stringify(this.toFile(stampNew), null, 2) + '\n'], { type: 'application/json' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob); a.download = Component.FILE;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+          this.saveDraft({ ...this.state, dirty: [], exported: stampNew });
+          this.setState({ changes: 0, dirty: [], exported: stampNew, invalid: false });
+          this.flash('Esportato inventario.json: caricalo nella repository');
+        });
+      },
+      onImport: e => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        file.text().then(t => this.loadText(t, 'File caricato'));
+        e.target.value = '';
+      },
+      onReset: () => {
+        if (!this.fileData) return this.flash('Nessun file di partenza caricato');
+        if (confirm('Annullare tutte le modifiche e tornare al contenuto di inventario.json?')) {
+          try { localStorage.removeItem(Component.KEY); } catch (e) {}
+          this.setState({ ...this.fileData, changes: 0, dirty: [], exported: null, open: null, act: null });
+          this.flash('Modifiche annullate');
+        }
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,627 @@
+{
+  "aggiornato": "2026-07-26T00:00:00.000Z",
+  "noteContenitori": {
+    "Scatola Marta": "Forse sparita"
+  },
+  "oggetti": [
+    {
+      "nr": 1,
+      "nome": "Scarponi",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "43",
+          "quantita": 3
+        }
+      ]
+    },
+    {
+      "nr": 2,
+      "nome": "Pantanomex / Nomex",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "Griglia S-M-L barrata, senza numeri",
+      "taglie": [
+        {
+          "taglia": "S",
+          "quantita": null
+        },
+        {
+          "taglia": "M",
+          "quantita": null
+        },
+        {
+          "taglia": "L",
+          "quantita": null
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "nome": "Maglie bordate",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "Il numero potrebbe essere 74",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 14
+        }
+      ]
+    },
+    {
+      "nr": 4,
+      "nome": "Maglioni bordati",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 11
+        }
+      ]
+    },
+    {
+      "nr": 5,
+      "nome": "Giacca divisa monobanda vecchia",
+      "contenitore": "Armadio",
+      "variante": "Estiva",
+      "note": "Valore precedente barrato",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 11
+        }
+      ]
+    },
+    {
+      "nr": 6,
+      "nome": "Giacca divisa monobanda vecchia",
+      "contenitore": "Armadio",
+      "variante": "Invernale",
+      "note": "Valore precedente barrato",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 16
+        }
+      ]
+    },
+    {
+      "nr": 7,
+      "nome": "Giacca divisa",
+      "contenitore": "Armadio",
+      "variante": "Invernale",
+      "note": "\"2x\" corretto sopra un altro numero",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 2
+        }
+      ]
+    },
+    {
+      "nr": 8,
+      "nome": "Maglioni verdi vecchi",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 5
+        }
+      ]
+    },
+    {
+      "nr": 9,
+      "nome": "Camicia grigia",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 10,
+      "nome": "Pantaloni divisa monobanda",
+      "contenitore": "Armadio",
+      "variante": "Estivi",
+      "note": "Valore precedente barrato",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 20
+        }
+      ]
+    },
+    {
+      "nr": 11,
+      "nome": "Pantaloni divisa monobanda",
+      "contenitore": "Armadio",
+      "variante": "Invernali",
+      "note": "Valore precedente barrato",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 15
+        }
+      ]
+    },
+    {
+      "nr": 12,
+      "nome": "Tutoni",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "Era 3, barrato",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 2
+        }
+      ]
+    },
+    {
+      "nr": 13,
+      "nome": "Giacca divisa nuova",
+      "contenitore": "Armadio",
+      "variante": "Nuova",
+      "note": "Quantità non scritta",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": null
+        }
+      ]
+    },
+    {
+      "nr": 14,
+      "nome": "Pantaloni divisa nuovi",
+      "contenitore": "Armadio",
+      "variante": "Nuovi",
+      "note": "Quantità non scritta",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": null
+        }
+      ]
+    },
+    {
+      "nr": 15,
+      "nome": "Scarpe antinfortunistica",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "1 paio",
+      "taglie": [
+        {
+          "taglia": "44",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 19,
+      "nome": "Pantanomex",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "Il totale taglie (4) non coincide con \"2x\"",
+      "taglie": [
+        {
+          "taglia": "M",
+          "quantita": 1
+        },
+        {
+          "taglia": "L",
+          "quantita": 2
+        },
+        {
+          "taglia": "XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 20,
+      "nome": "Cinturone con borsina",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 21,
+      "nome": "Tuta ginnica",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "M",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 22,
+      "nome": "Nomex",
+      "contenitore": "Armadio",
+      "variante": "Vecchio",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 25,
+      "nome": "Cappucci per giacca",
+      "contenitore": "Armadio",
+      "variante": "Vecchi",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 3
+        }
+      ]
+    },
+    {
+      "nr": 26,
+      "nome": "Antipioggia completo",
+      "contenitore": "Armadio",
+      "variante": "Vecchio",
+      "note": "Scritto \"1\" e poi tre pezzi in taglie",
+      "taglie": [
+        {
+          "taglia": "S",
+          "quantita": 1
+        },
+        {
+          "taglia": "XL",
+          "quantita": 2
+        }
+      ]
+    },
+    {
+      "nr": 27,
+      "nome": "Antipioggia",
+      "contenitore": "Armadio",
+      "variante": "Nuovo",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 28,
+      "nome": "Giacca",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "Riferimento poco chiaro",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 29,
+      "nome": "Giacca vecchia",
+      "contenitore": "Armadio",
+      "variante": "Vecchia",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 30,
+      "nome": "Completo Nomex Pantanomex",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 31,
+      "nome": "Polo",
+      "contenitore": "Armadio",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 16,
+      "nome": "Completo antipioggia",
+      "contenitore": "Scatola Silvestro",
+      "variante": "",
+      "note": "In sacchetto di plastica · \"Silvestro\" indica il proprietario",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 17,
+      "nome": "Giacca invernale",
+      "contenitore": "Scatola Silvestro",
+      "variante": "Invernale",
+      "note": "Nel sacchetto di plastica",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 18,
+      "nome": "Maglione",
+      "contenitore": "Scatola Silvestro",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "L-XL",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 23,
+      "nome": "Parafiamma",
+      "contenitore": "Sacchetto VVFF",
+      "variante": "Vecchio",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 24,
+      "nome": "Sottocasco",
+      "contenitore": "Sacchetto VVFF",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 40,
+      "nome": "Paio Jolly",
+      "contenitore": "Pagina Jolly",
+      "variante": "",
+      "note": "Righe 40–42 unite · 1 paio ciascuna",
+      "taglie": [
+        {
+          "taglia": "43",
+          "quantita": 3
+        }
+      ]
+    },
+    {
+      "nr": 43,
+      "nome": "Completo Nomex Pantanomex violino",
+      "contenitore": "Pagina Jolly",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 44,
+      "nome": "Riga cancellata",
+      "contenitore": "Pagina Jolly",
+      "variante": "",
+      "note": "Illeggibile, comincia con \"1\"",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 45,
+      "nome": "Pantanomex",
+      "contenitore": "Pagina Jolly",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "L",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 46,
+      "nome": "Pantaloni",
+      "contenitore": "Tabella Pantaloni",
+      "variante": "Invernale",
+      "note": "Scritto \"////x (54)\"",
+      "taglie": [
+        {
+          "taglia": "54",
+          "quantita": 4
+        }
+      ]
+    },
+    {
+      "nr": 47,
+      "nome": "Giacche",
+      "contenitore": "Tabella Giacche",
+      "variante": "Estiva",
+      "note": "Un secondo valore è barrato",
+      "taglie": [
+        {
+          "taglia": "54",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 48,
+      "nome": "Giacche",
+      "contenitore": "Tabella Giacche",
+      "variante": "Invernale",
+      "note": "Un terzo \"54\" è barrato",
+      "taglie": [
+        {
+          "taglia": "54",
+          "quantita": 2
+        }
+      ]
+    },
+    {
+      "nr": 32,
+      "nome": "Maschera",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "Borsa elmo leggero",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 33,
+      "nome": "Elmo leggero",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "Borsa elmo leggero",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 34,
+      "nome": "Elmo pesante",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "Borsa elmo",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 35,
+      "nome": "Stivali Jolly",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "1 paio",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 36,
+      "nome": "Antipioggia completo",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "1 pantalone + 1 giacca",
+      "taglie": [
+        {
+          "taglia": "",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 37,
+      "nome": "Pantaloni divisa",
+      "contenitore": "Scatola Marta",
+      "variante": "Invernali",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "50 4R",
+          "quantita": 2
+        }
+      ]
+    },
+    {
+      "nr": 38,
+      "nome": "Maglione",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "Scritto \"M II\"",
+      "taglie": [
+        {
+          "taglia": "M",
+          "quantita": 1
+        }
+      ]
+    },
+    {
+      "nr": 39,
+      "nome": "Giubbotto",
+      "contenitore": "Scatola Marta",
+      "variante": "",
+      "note": "",
+      "taglie": [
+        {
+          "taglia": "M",
+          "quantita": 1
+        }
+      ]
+    }
+  ],
+  "movimenti": []
+}
